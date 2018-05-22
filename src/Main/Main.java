@@ -1,28 +1,48 @@
 package Main;
 
+import java.util.ArrayList;
+
+import Map.Map;
 import Movement.Enemy;
 import Movement.Player;
 
-public class Main {
+public class Main extends Map{
 
-	private int NumberOfEnemy = 1;
-	Movement.Enemy enemy1 = new Enemy("ノブオ",5);
-	Movement.Enemy enemy2;
-	enemy2 = new Enemy("草",15);
-	Movement.Player player = new Player();
+	static ArrayList<Movement.Enemy> enemy = new ArrayList<Movement.Enemy>();
+	static Movement.Player player = new Player();
 
 	public static void main(String[] args) {
-		// TODO 自動生成されたメソッド・スタブ
-		enemy1.print_data();
-		enemy2.eat(7);
-		enemy2.print_data();
-
+		enemy.add(new Enemy());
+		enemy.add(new Enemy());
+		Main.PrintAllEnemy();
+		Main.CalcEnemyState();
+		Main.PrintAllEnemy();
+		player.PrintData();
 	}
 
-	private void CalcEnemyState() {
+	private static void CalcEnemyState() {
+		int e_x,e_y,p_x,p_y;
+		p_x = player.GetX();
+		p_y = player.GetY();
+		for(int i = 0;i < enemy.size();i++) {
+			e_x = enemy.get(i).GetX();
+			e_y = enemy.get(i).GetY();
+			if(e_x < p_x) {
+				enemy.get(i).AdX(1);
+			}else if (e_x > p_x) {
+				enemy.get(i).AdX(-1);
+			}
+			if(e_y < p_y) {
+				enemy.get(i).AdY(1);
+			}else if (e_y > p_y) {
+				enemy.get(i).AdY(-1);
+			}
+		}
+	}
 
-		for(int i = 0;i < this.NumberOfEnemy;i++) {
-			enemy1.Get
+	private static void PrintAllEnemy() {
+		for(int i = 0;i < enemy.size();i++) {
+			enemy.get(i).PrintData(i);
 		}
 	}
 
