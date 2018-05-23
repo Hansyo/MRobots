@@ -13,4 +13,5 @@ public class Player extends Movement{
 		super.PrintY();
 		System.out.println();
 	}
+
 }

@@ -45,5 +45,4 @@ public class Game extends Map {
 			enemy.add(new Movement.Enemy(Speed));
 		}
 	}
-
 }

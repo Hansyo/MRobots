@@ -15,5 +15,4 @@ public class Enemy extends Movement {
 		System.out.println();
 	}
 
-
 }
