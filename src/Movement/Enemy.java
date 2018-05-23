@@ -14,5 +14,4 @@ public class Enemy extends Movement {
 		super.PrintY();
 		System.out.println();
 	}
-
 }

@@ -40,5 +40,4 @@ public class Movement extends Map{
 	public int GetY() {
 		return this.y;
 	}
-
 }
