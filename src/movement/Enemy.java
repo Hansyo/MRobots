@@ -14,4 +14,19 @@ public class Enemy extends Movement {
 		super.PrintY();
 		System.out.println();
 	}
+
+	@Override
+	public void AdX(int data) {
+		this.x += data * this.move_speed;
+		if(this.x < -WIDTH/2) this.x = -WIDTH/2;
+		if(this.x > WIDTH/2) this.x = WIDTH/2;
+	}
+
+	@Override
+	public void AdY(int data) {
+		this.y += data * this.move_speed;
+		if(this.y < -HEIGHT/2) this.y = -HEIGHT/2;
+		if(this.y > HEIGHT/2) this.y = HEIGHT/2;
+	}
+
 }

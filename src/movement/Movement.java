@@ -33,11 +33,11 @@ public class Movement extends Map{
 		if(this.y > HEIGHT/2) this.y = HEIGHT/2;
 	}
 
-	public int GetX() {
+	public int getX() {
 		return this.x;
 	}
 
-	public int GetY() {
+	public int getY() {
 		return this.y;
 	}
 }
