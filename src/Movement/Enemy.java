@@ -1,4 +1,4 @@
-package movement;
+package Movement;
 
 public class Enemy extends Movement {
 	private int MoveSpeed;
