@@ -1,10 +1,10 @@
-package Movement;
+package movement;
 
 public class Enemy extends Movement {
-	private int MoveSpeed;
+	private int move_speed;
 
-	public Enemy(int Speed) {
-		this.MoveSpeed = Speed;
+	public Enemy(int speed) {
+		this.move_speed = speed;
 	}
 
 	public void PrintData(int i) {

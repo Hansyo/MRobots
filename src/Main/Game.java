@@ -1,17 +1,24 @@
-package Main;
+package main;
 
 import java.util.ArrayList;
 
-import Map.Map;
-import Movement.Player;
+import map.Map;
+import map.gui.Frame;
+import movement.Player;
 
 public class Game extends Map {
 
-	static ArrayList<Movement.Enemy> enemy = new ArrayList<Movement.Enemy>();
-	static Movement.Player player = new Player();
+	ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
+	movement.Player player = new Player();
+	map.gui.Frame game_board = new Frame();
 
-	public void StartLevel(int Level) {
-
+	public void StartLevel(int level) {
+		game_board.setVisible();
+		MakeEnemy(level * 2 + level / 5 + 2, 1);
+		PrintAllEnemy();
+		player.PrintData();
+		CalcEnemyState();
+		PrintAllEnemy();
 	}
 
 	private void CalcEnemyState() {
@@ -34,15 +41,15 @@ public class Game extends Map {
 		}
 	}
 
-	private static void PrintAllEnemy() {
+	private void PrintAllEnemy() {
 		for(int i = 0;i < enemy.size();i++) {
 			enemy.get(i).PrintData(i);
 		}
 	}
 
-	private void MakeEnemy(int Num,int Speed) {
-		for(int i = 0;i < Num;i++) {
-			enemy.add(new Movement.Enemy(Speed));
+	private void MakeEnemy(int num,int speed) {
+		for(int i = 0;i < num;i++) {
+			enemy.add(new movement.Enemy(speed));
 		}
 	}
 

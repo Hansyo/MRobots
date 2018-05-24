@@ -1,4 +1,4 @@
-package Movement;
+package movement;
 
 public class Player extends Movement{
 
