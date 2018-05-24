@@ -1,8 +1,8 @@
-package Movement;
+package movement;
 
 import java.util.Random;
 
-import Map.Map;
+import map.Map;
 
 public class Movement extends Map{
 	protected int x,y;
