@@ -15,4 +15,5 @@ public class Frame extends Map {
 	public void setVisible() {
 		board.setVisible(true);
 	}
+    
 }
