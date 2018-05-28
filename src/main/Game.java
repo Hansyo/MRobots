@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import map.Map;
 import map.gui.Frame;
+import map.gui.Panel;
 import movement.Player;
 
 public class Game extends Map {
@@ -11,9 +12,11 @@ public class Game extends Map {
 	ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
 	movement.Player player = new Player();
 	map.gui.Frame game_board = new Frame();
+	map.gui.Panel game_panel = new Panel();
 
 	public void StartLevel(int level) {
 		game_board.setVisible();
+		game_panel.Panel_init();
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
 		PrintAllEnemy();
 		player.PrintData();
