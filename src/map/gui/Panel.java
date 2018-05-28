@@ -1,23 +1,24 @@
 package map.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Container;
+import java.awt.Dimension;
 
 import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
 
 public class Panel extends map.Map{
 	private JPanel panel = new JPanel();
 
-	public Panel() {
-		panel.setBackground(Color.GRAY);
+	public Panel(Color color) {
+		panel.setBackground(color);
 	}
 
-	public void Panel_init() {
-		Container contentPane = getContentPane();
-		BevelBorder border = new BevelBorder(BevelBorder.RAISED);
-		panel.setBorder(border);
-		contentPane.add(panel, BorderLayout.NORTH);
+	public void setPreferredSize(int width,int height) {
+		panel.setPreferredSize(new Dimension(width, height));
 	}
+
+	public JPanel getPanel() {
+		return panel;
+	}
+
+
 }
