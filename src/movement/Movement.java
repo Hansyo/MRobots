@@ -6,7 +6,7 @@ import map.Map;
 
 public class Movement extends Map{
 	protected int x,y;
-	protected static Random rnd = new Random();
+	private static Random rnd = new Random();
 
 	public Movement() {
 		this.x = Movement.rnd.nextInt(WIDTH);
