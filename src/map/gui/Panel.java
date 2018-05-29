@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Panel {
@@ -27,12 +28,7 @@ public class Panel {
 	}
 
 	/* labelを複数作って書き換えれば良いという説が提唱された。*/
-	public void setPict(int speed) {
-		switch(speed) {
-		case 0:break;
-		case 1:break;
-		case 2:break;
-		default :break;
-		}
+	public void addLabel(JLabel label) {
+		this.panel.add(label);
 	}
 }

@@ -3,6 +3,8 @@ package map.gui;
 import java.awt.Color;
 import java.awt.Container;
 
+import javax.swing.JLabel;
+
 public class Gui extends map.Map{
 	private Frame frame = new Frame();
 	private Panel panel = new Panel(Color.RED);
@@ -12,10 +14,16 @@ public class Gui extends map.Map{
 		this.contentPane = this.frame.getContentPane();
 	}
 
-	public void SetGameBoard() {
+	public void setGameBoard() {
 		this.panel.setPreferredSize(WIDTH*10, HEIGHT*10);
-		this.panel.setPict(0);
 		this.contentPane.add(this.panel.getPanel());
-		this.frame.setVisible(true);
+	}
+
+	public void addLabeltoPanel(JLabel label) {
+		panel.addLabel(label);
+	}
+
+	public void setVisible(boolean b) {
+		this.frame.setVisible(b);
 	}
 }

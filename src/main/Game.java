@@ -2,6 +2,8 @@ package main;
 
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
+
 import map.Map;
 import map.gui.Gui;
 import movement.Movement;
@@ -10,14 +12,21 @@ import movement.Player;
 public class Game extends Map {
 
 	private ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
+	private ArrayList<JLabel> label = new ArrayList<JLabel>();
 	private movement.Player player = new Player();
 	private map.gui.Gui game_board = new Gui();
+
+	public Game() {
+		this.game_board.setGameBoard();
+		// labelをくっつける文を書く
+		// for(int i = 0;i < )
+	}
+
 
 	public void StartLevel(int level) {
 		// speedの1は固定値
 		this.player.ResetPlayerState();
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
-		// this.game_board.SetGameBoard();
 		PrintAllEnemy();
 		this.player.PrintData();
 		CalcEnemyState();
