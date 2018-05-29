@@ -3,7 +3,7 @@ package movement;
 public class Player extends Movement{
 
 	public Player(){
-		super.x = super.y = 0;
+		ResetPlayerState();
 	}
 
 	public void PrintData() {
@@ -15,6 +15,7 @@ public class Player extends Movement{
 	}
 
 	public void ResetPlayerState() {
-		super.x = super.y = 0;
+		super.x = super.WIDTH / 2;
+		super.y = super.HEIGHT / 2;
 	}
 }

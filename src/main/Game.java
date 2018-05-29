@@ -17,7 +17,7 @@ public class Game extends Map {
 		// speedの1は固定値
 		this.player.ResetPlayerState();
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
-		this.game_board.SetGameBoard();
+		// this.game_board.SetGameBoard();
 		PrintAllEnemy();
 		this.player.PrintData();
 		CalcEnemyState();
@@ -63,9 +63,8 @@ public class Game extends Map {
 		for(int i = 0;i < num;i++) {
 			// 今map内に残っている、ランダムな座標を選択
 			state = Movement.getRndNextInt(map.size());
-			this.enemy.add(new movement.Enemy(speed,
-					map.get(state) % super.WIDTH - (super.WIDTH / 2),
-					map.get(state) / super.WIDTH - (super.HEIGHT / 2)));
+			// mapのState番目の値の座標を調べて抜く
+			this.enemy.add(new movement.Enemy(speed,map.get(state) % super.WIDTH, map.get(state) / super.WIDTH));
 			// 選択された座標を抜く
 			map.remove(state);
 		}
