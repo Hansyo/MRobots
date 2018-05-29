@@ -19,6 +19,12 @@ public class Enemy extends Movement {
 		System.out.println();
 	}
 
+	/*
+	 * old_x[y] と this.x[y]の間にplayerがいたら、this.x[y] = player.x[y]
+	 * みたいな処理を書けば、OK!!
+	 * これで敵の動きはOK
+	 * あとは衝突判定
+	 */
 	@Override
 	public void AddX(int data) {
 		this.x += data * this.move_speed;

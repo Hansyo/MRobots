@@ -39,13 +39,11 @@ public class Game extends Map {
 		// speedの1は固定値
 		this.player.ResetPlayerState();
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
+		MakeEnemy(level / 3, 2);
 		PrintAllEnemy();
 		this.player.PrintData();
 		this.game_board.setVisible(true);
 		PrintAllElements();
-		while(true) {
-			MoveFlow();
-		}
 	}
 
 	public void MoveFlow() {
@@ -61,15 +59,15 @@ public class Game extends Map {
 			do {
 				i = System.in.read();
 				switch((char)i) {
-					case '1': i = player.CalcPlayerState(-1,+1); break;
-					case '2': i = player.CalcPlayerState( 0,+1); break;
-					case '3': i = player.CalcPlayerState(+1,+1); break;
-					case '4': i = player.CalcPlayerState(-1, 0); break;
-					case '5':	i = 0;														 break;
-					case '6': i = player.CalcPlayerState(+1, 0); break;
-					case '7': i = player.CalcPlayerState(-1,-1); break;
-					case '8': i = player.CalcPlayerState( 0,-1); break;
-					case '9': i = player.CalcPlayerState(+1,-1); break;
+					case '1': i = player.CalcPlayerState(-1, +1); break;
+					case '2': i = player.CalcPlayerState( 0, +1); break;
+					case '3': i = player.CalcPlayerState(+1, +1); break;
+					case '4': i = player.CalcPlayerState(-1,  0); break;
+					case '5':	i = 0;													 	 break;
+					case '6': i = player.CalcPlayerState(+1,  0); break;
+					case '7': i = player.CalcPlayerState(-1, -1); break;
+					case '8': i = player.CalcPlayerState( 0, -1); break;
+					case '9': i = player.CalcPlayerState(+1, -1); break;
 					default : i = 1;
 				}
 			}while(i != 0);
