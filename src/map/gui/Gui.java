@@ -26,4 +26,17 @@ public class Gui extends map.Map{
 	public void setVisible(boolean b) {
 		this.frame.setVisible(b);
 	}
+
+	public int getGridSize() {
+		return this.panel.getHEIGHT() * this.panel.getWIDTH();
+	}
+
+	public int getPanelHEIGHT() {
+		return this.panel.getHEIGHT();
+	}
+
+	public int getPanelWIDTH() {
+		return this.panel.getWIDTH();
+	}
+
 }

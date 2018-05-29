@@ -4,10 +4,10 @@ import java.awt.Container;
 
 import javax.swing.JFrame;
 
-import map.Map;
 
-
-public class Frame extends Map {
+public class Frame {
+	final private int WIDTH  = 100;
+	final private int HEIGHT = 50;
 	private JFrame board = new JFrame("MRobots");
 
 	public Frame() {

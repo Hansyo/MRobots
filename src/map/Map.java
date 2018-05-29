@@ -1,6 +1,6 @@
 package map;
 
 public class Map {
-	final protected int WIDTH = 100;
-	final protected int HEIGHT = 50;
+	final protected int WIDTH = 20;
+	final protected int HEIGHT = 20;
 }

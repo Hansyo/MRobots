@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Color;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -18,10 +20,20 @@ public class Game extends Map {
 
 	public Game() {
 		this.game_board.setGameBoard();
-		// labelをくっつける文を書く
-		// for(int i = 0;i < )
+		relateLabelAndPanel();
 	}
 
+
+	private void relateLabelAndPanel() {
+		for(int i = 0;i < game_board.getGridSize();i++) {
+			this.label.add(new JLabel(""));
+			this.label.get(i).setBackground(Color.CYAN);
+			this.label.get(i).setForeground(Color.BLACK);
+			this.label.get(i).setHorizontalAlignment(JLabel.CENTER);
+			this.label.get(i).setOpaque(true);
+			game_board.addLabeltoPanel(label.get(i));
+		}
+	}
 
 	public void StartLevel(int level) {
 		// speedの1は固定値
@@ -29,8 +41,37 @@ public class Game extends Map {
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
 		PrintAllEnemy();
 		this.player.PrintData();
+		this.game_board.setVisible(true);
+		PrintAllElements();
+		CalcPlayerState();
 		CalcEnemyState();
-		PrintAllEnemy();
+		PrintAllElements();
+	}
+
+
+	private void CalcPlayerState() {
+		int i;
+
+		try {
+			do {
+				i = System.in.read();
+				switch((char)i) {
+					case '1': i = player.CalcPlayerState(-1,+1); break;
+					case '2': i = player.CalcPlayerState( 0,+1); break;
+					case '3': i = player.CalcPlayerState(+1,+1); break;
+					case '4': i = player.CalcPlayerState(-1, 0); break;
+					case '5':	i = 0;														 break;
+					case '6': i = player.CalcPlayerState(+1, 0); break;
+					case '7': i = player.CalcPlayerState(-1,-1); break;
+					case '8': i = player.CalcPlayerState( 0,-1); break;
+					case '9': i = player.CalcPlayerState(+1,-1); break;
+					default : i = 1;
+				}
+			}while(i != 0);
+		}
+		catch(IOException e) {
+			System.out.println("入力エラーです");
+		}
 	}
 
 	private void CalcEnemyState() {
@@ -40,22 +81,52 @@ public class Game extends Map {
 		for(int i = 0;i < this.enemy.size();i++) {
 			e_x = this.enemy.get(i).getX();
 			e_y = this.enemy.get(i).getY();
+			this.label.get(e_y * this.game_board.getPanelWIDTH() + e_x).setText("");
 			if(e_x < p_x) {
-				this.enemy.get(i).AdX(1);
+				this.enemy.get(i).AddX(1);
 			}else if (e_x > p_x) {
-				this.enemy.get(i).AdX(-1);
+				this.enemy.get(i).AddX(-1);
 			}
+			System.out.println("i : " + i);
 			if(e_y < p_y) {
-				this.enemy.get(i).AdY(1);
+				this.enemy.get(i).AddY(1);
 			}else if (e_y > p_y) {
-				this.enemy.get(i).AdY(-1);
+				this.enemy.get(i).AddY(-1);
 			}
+
 		}
 	}
 
+	public void PrintAllElements() {
+		PrintPlayer();
+		PrintAllEnemy();
+	}
+
+	private void PrintPlayer() {
+		this.label.get(this.player.getOld_y() * super.WIDTH + this.player.getOld_x()).setText("");
+		this.label.get(this.player.getY() * super.WIDTH + this.player.getX()).setText("@");
+		this.player.PrintData();
+	}
+
 	private void PrintAllEnemy() {
+		int e_state;
 		for(int i = 0;i < this.enemy.size();i++) {
 			this.enemy.get(i).PrintData(i);
+			e_state = this.enemy.get(i).getY() * this.game_board.getPanelWIDTH();
+			e_state += this.enemy.get(i).getX();
+			System.out.println("[" + i + "]e_state: " + e_state);
+			System.out.println(this.label.size() + "\n");
+     	switch(this.enemy.get(i).getMove_speed()) {
+				case 1:
+					this.label.get(e_state).setText("①");
+					break;
+				case 2:
+					this.label.get(e_state).setText("②");
+					break;
+				default:
+					this.label.get(e_state).setText("*");
+					break;
+			}
 		}
 	}
 
@@ -66,15 +137,18 @@ public class Game extends Map {
 		for(int i = 0;i < super.HEIGHT * super.WIDTH;i++) {
 			map.add(new Integer(i));
 		}
+
 		// 現在のプレイヤーの位置を抜く
 		map.remove(this.player.getY() * super.WIDTH + this.player.getX());
-		// 指定された個数分numを抜く
+
 		for(int i = 0;i < num;i++) {
 			// 今map内に残っている、ランダムな座標を選択
 			state = Movement.getRndNextInt(map.size());
-			// mapのState番目の値の座標を調べて抜く
+
+			// 選択された座標をEnemyの初期位置とする
 			this.enemy.add(new movement.Enemy(speed,map.get(state) % super.WIDTH, map.get(state) / super.WIDTH));
-			// 選択された座標を抜く
+
+			// mapのState番目の値の座標を調べて抜く
 			map.remove(state);
 		}
 	}

@@ -31,4 +31,14 @@ public class Panel {
 	public void addLabel(JLabel label) {
 		this.panel.add(label);
 	}
+
+	public int getWIDTH() {
+		return WIDTH;
+	}
+
+	public int getHEIGHT() {
+		return HEIGHT;
+	}
+
+
 }
