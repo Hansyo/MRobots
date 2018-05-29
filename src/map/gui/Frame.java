@@ -12,6 +12,7 @@ public class Frame extends Map {
 
 	public Frame() {
 		this.board.setBounds(100, 100, WIDTH * 10 + 25, HEIGHT * 10 + 25);
+		this.board.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 	}
 
 	public void setVisible(boolean b) {

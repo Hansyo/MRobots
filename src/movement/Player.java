@@ -13,4 +13,8 @@ public class Player extends Movement{
 		super.PrintY();
 		System.out.println();
 	}
+
+	public void ResetPlayerState() {
+		super.x = super.y = 0;
+	}
 }

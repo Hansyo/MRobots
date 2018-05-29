@@ -3,8 +3,10 @@ package movement;
 public class Enemy extends Movement {
 	private int move_speed;
 
-	public Enemy(int speed) {
+	public Enemy(int speed,int x,int y) {
 		this.move_speed = speed;
+		super.x = x;
+		super.y = y;
 	}
 
 	public void PrintData(int i) {

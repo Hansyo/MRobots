@@ -6,11 +6,11 @@ import map.Map;
 
 public class Movement extends Map{
 	protected int x,y;
-	private Random rnd = new Random();
+	protected static Random rnd = new Random();
 
 	public Movement() {
-		this.x = rnd.nextInt(WIDTH) - WIDTH/2;
-		this.y = rnd.nextInt(HEIGHT) - HEIGHT/2;
+		this.x = Movement.rnd.nextInt(WIDTH) - WIDTH/2;
+		this.y = Movement.rnd.nextInt(HEIGHT) - HEIGHT/2;
 	}
 
 	public void PrintX() {
@@ -40,4 +40,9 @@ public class Movement extends Map{
 	public int getY() {
 		return this.y;
 	}
+
+	public static int getRndNextInt(int range) {
+		return Movement.rnd.nextInt(range);
+	}
+
 }

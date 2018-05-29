@@ -9,12 +9,13 @@ public class Gui extends map.Map{
 	private Container contentPane;
 
 	public Gui() {
-		contentPane = frame.getContentPane();
+		this.contentPane = this.frame.getContentPane();
 	}
 
 	public void SetGameBoard() {
-		panel.setPreferredSize(WIDTH, HEIGHT);
-		contentPane.add(panel.getPanel());
-		frame.setVisible(true);
+		this.panel.setPreferredSize(WIDTH*10, HEIGHT*10);
+		this.panel.setPict(0);
+		this.contentPane.add(this.panel.getPanel());
+		this.frame.setVisible(true);
 	}
 }

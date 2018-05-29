@@ -4,52 +4,70 @@ import java.util.ArrayList;
 
 import map.Map;
 import map.gui.Gui;
+import movement.Movement;
 import movement.Player;
 
 public class Game extends Map {
 
-	ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
-	movement.Player player = new Player();
-	map.gui.Gui game_board = new Gui();
+	private ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
+	private movement.Player player = new Player();
+	private map.gui.Gui game_board = new Gui();
 
 	public void StartLevel(int level) {
+		// speedの1は固定値
+		this.player.ResetPlayerState();
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
-		game_board.SetGameBoard();
+		this.game_board.SetGameBoard();
 		PrintAllEnemy();
-		player.PrintData();
+		this.player.PrintData();
 		CalcEnemyState();
 		PrintAllEnemy();
 	}
 
 	private void CalcEnemyState() {
 		int e_x,e_y,p_x,p_y;
-		p_x = player.getX();
-		p_y = player.getY();
-		for(int i = 0;i < enemy.size();i++) {
-			e_x = enemy.get(i).getX();
-			e_y = enemy.get(i).getY();
+		p_x = this.player.getX();
+		p_y = this.player.getY();
+		for(int i = 0;i < this.enemy.size();i++) {
+			e_x = this.enemy.get(i).getX();
+			e_y = this.enemy.get(i).getY();
 			if(e_x < p_x) {
-				enemy.get(i).AdX(1);
+				this.enemy.get(i).AdX(1);
 			}else if (e_x > p_x) {
-				enemy.get(i).AdX(-1);
+				this.enemy.get(i).AdX(-1);
 			}
 			if(e_y < p_y) {
-				enemy.get(i).AdY(1);
+				this.enemy.get(i).AdY(1);
 			}else if (e_y > p_y) {
-				enemy.get(i).AdY(-1);
+				this.enemy.get(i).AdY(-1);
 			}
 		}
 	}
 
 	private void PrintAllEnemy() {
-		for(int i = 0;i < enemy.size();i++) {
-			enemy.get(i).PrintData(i);
+		for(int i = 0;i < this.enemy.size();i++) {
+			this.enemy.get(i).PrintData(i);
 		}
 	}
 
 	private void MakeEnemy(int num,int speed) {
+		ArrayList<Integer> map = new ArrayList<Integer>();
+		int state;
+		// mapのすべてのマス目を持った、リストの作成
+		for(int i = 0;i < super.HEIGHT * super.WIDTH;i++) {
+			map.add(new Integer(i));
+		}
+		// 現在のプレイヤーの位置を抜く
+		map.remove(this.player.getY() * super.WIDTH + this.player.getX());
+		// 指定された個数分numを抜く
 		for(int i = 0;i < num;i++) {
-			enemy.add(new movement.Enemy(speed));
+			// 今map内に残っている、ランダムな座標を選択
+			state = Movement.getRndNextInt(map.size());
+			this.enemy.add(new movement.Enemy(speed,
+					map.get(state) % super.WIDTH - (super.WIDTH / 2),
+					map.get(state) / super.WIDTH - (super.HEIGHT / 2)));
+			// 選択された座標を抜く
+			map.remove(state);
 		}
 	}
 
