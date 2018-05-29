@@ -43,11 +43,16 @@ public class Game extends Map {
 		this.player.PrintData();
 		this.game_board.setVisible(true);
 		PrintAllElements();
+		while(true) {
+			MoveFlow();
+		}
+	}
+
+	public void MoveFlow() {
 		CalcPlayerState();
 		CalcEnemyState();
 		PrintAllElements();
 	}
-
 
 	private void CalcPlayerState() {
 		int i;
