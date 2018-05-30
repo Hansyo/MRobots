@@ -5,7 +5,7 @@ import java.awt.Container;
 
 import javax.swing.JLabel;
 
-public class Gui extends map.Map{
+public class Gui extends map.Map {
 	private Frame frame = new Frame();
 	private Panel panel = new Panel(Color.RED);
 	private Container contentPane;
@@ -15,7 +15,7 @@ public class Gui extends map.Map{
 	}
 
 	public void setGameBoard() {
-		this.panel.setPreferredSize(WIDTH*10, HEIGHT*10);
+		this.panel.setPreferredSize(WIDTH * 10, HEIGHT * 10);
 		this.contentPane.add(this.panel.getPanel());
 	}
 

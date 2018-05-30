@@ -17,9 +17,11 @@ public class Panel {
 	public Panel(Color color) {
 		this.panel.setBackground(color);
 		this.panel.setLayout(this.grid);
+		this.panel.setFocusable(true);
+		panel.requestFocusInWindow();
 	}
 
-	public void setPreferredSize(int width,int height) {
+	public void setPreferredSize(int width, int height) {
 		this.panel.setPreferredSize(new Dimension(width, height));
 	}
 
@@ -39,6 +41,5 @@ public class Panel {
 	public int getHEIGHT() {
 		return HEIGHT;
 	}
-
 
 }

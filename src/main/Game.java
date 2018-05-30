@@ -1,8 +1,10 @@
 package main;
 
 import java.awt.Color;
-import java.io.IOException;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JLabel;
 
@@ -11,16 +13,18 @@ import map.gui.Gui;
 import movement.Movement;
 import movement.Player;
 
-public class Game extends Map {
+public class Game extends Map implements KeyListener{
 
 	private ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
 	private ArrayList<JLabel> label = new ArrayList<JLabel>();
 	private movement.Player player = new Player();
 	private map.gui.Gui game_board = new Gui();
+	private int key;
 
 	public Game() {
 		this.game_board.setGameBoard();
 		relateLabelAndPanel();
+		// super.addKeyListener(this);
 	}
 
 	private void relateLabelAndPanel() {
@@ -37,6 +41,8 @@ public class Game extends Map {
 	public void StartLevel(int level) {
 		// speedの1は固定値
 		this.player.ResetPlayerState();
+		this.enemy.clear();
+		LabelClear();
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
 		MakeEnemy(level / 3, 2);
 		PrintAllEnemy();
@@ -45,58 +51,82 @@ public class Game extends Map {
 		PrintAllElements();
 	}
 
+	@Override
+	public void keyPressed(KeyEvent e) {
+		key = e.getKeyChar();
+		System.out.println("key : " + key + "\n");
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {}
+
+	@Override
+	public void keyReleased(KeyEvent e) {}
+
+
+	private void LabelClear() {
+		for(int i = 0;i < label.size();i++) {
+			label.get(i).setText("");
+		}
+	}
+
 	public void MoveFlow() {
 		CalcPlayerState();
 		CalcEnemyState();
+		constEnemytoEnemy();
 		PrintAllElements();
 	}
 
 	private void CalcPlayerState() {
-		int i;
+		int input;
+		boolean state;
+		this.key = 0;
+		while(this.key != 0);
 
-		try {
-			do {
-				i = System.in.read();
-				switch ((char) i) {
-				case '0':
-					i = 0;
-					System.out.println("Teleport!!");
-					TeleportPlayer();
-					break;
-				case '1':
-					i = player.CalcPlayerState(-1, +1);
-					break;
-				case '2':
-					i = player.CalcPlayerState(0, +1);
-					break;
-				case '3':
-					i = player.CalcPlayerState(+1, +1);
-					break;
-				case '4':
-					i = player.CalcPlayerState(-1, 0);
-					break;
-				case '5':
-					i = 0;
-					break;
-				case '6':
-					i = player.CalcPlayerState(+1, 0);
-					break;
-				case '7':
-					i = player.CalcPlayerState(-1, -1);
-					break;
-				case '8':
-					i = player.CalcPlayerState(0, -1);
-					break;
-				case '9':
-					i = player.CalcPlayerState(+1, -1);
-					break;
-				default:
-					i = 1;
-				}
-			} while (i != 0);
-		} catch (IOException e) {
-			System.out.println("入力エラーです");
-		}
+		do {
+			input = this.key;
+			state = false;
+			switch ((char) input) {
+			case '0':
+				state = true;
+				System.out.println("Teleport!!");
+				TeleportPlayer();
+				break;
+			case '1':
+				state = player.CalcPlayerState(-1, +1);
+				break;
+			case '2':
+				state = player.CalcPlayerState(0, +1);
+				break;
+			case '3':
+				state = player.CalcPlayerState(+1, +1);
+				break;
+			case '4':
+				state = player.CalcPlayerState(-1, 0);
+				break;
+			case '5':
+				state = true;
+				break;
+			case '6':
+				state = player.CalcPlayerState(+1, 0);
+				break;
+			case '7':
+				state = player.CalcPlayerState(-1, -1);
+				break;
+			case '8':
+				state = player.CalcPlayerState(0, -1);
+				break;
+			case '9':
+				state = player.CalcPlayerState(+1, -1);
+				break;
+			default:
+				state = false;
+			}
+			for (int j = 0; j < enemy.size() && state != true; j++) {
+				if (enemy.get(j).getState() == player.getState())
+					state = false;
+			}
+		} while (state != true);
 	}
 
 	private void CalcEnemyState() {
@@ -131,17 +161,17 @@ public class Game extends Map {
 	private void PrintPlayer() {
 		this.label.get(this.player.getOld_y() * super.WIDTH + this.player.getOld_x()).setText("");
 		this.label.get(this.player.getY() * super.WIDTH + this.player.getX()).setText("@");
-		this.player.PrintData();
+		// this.player.PrintData();
 	}
 
 	private void PrintAllEnemy() {
 		int e_state;
 		for (int i = 0; i < this.enemy.size(); i++) {
-			this.enemy.get(i).PrintData(i);
+			// this.enemy.get(i).PrintData(i);
 			e_state = this.enemy.get(i).getY() * this.game_board.getPanelWIDTH();
 			e_state += this.enemy.get(i).getX();
-			System.out.println("[" + i + "]e_state: " + e_state);
-			System.out.println(this.label.size() + "\n");
+			// System.out.println("[" + i + "]e_state: " + e_state);
+			// System.out.println(this.label.size() + "\n");
 			switch (this.enemy.get(i).getMove_speed()) {
 			case 1:
 				this.label.get(e_state).setText("①");
@@ -150,7 +180,7 @@ public class Game extends Map {
 				this.label.get(e_state).setText("②");
 				break;
 			default:
-				this.label.get(e_state).setText("*");
+				this.label.get(e_state).setText("#");
 				break;
 			}
 		}
@@ -190,13 +220,67 @@ public class Game extends Map {
 			map.add(new Integer(i));
 		}
 		map.remove(player.getY() * super.WIDTH + player.getX());
-		for (int i = 0; i < enemy.size();i++) {
-			map.remove(enemy.get(i).getY() * super.WIDTH+ enemy.get(i).getX());
+		for (int i = 0; i < enemy.size(); i++) {
+			map.remove(enemy.get(i).getY() * super.WIDTH + enemy.get(i).getX());
 		}
 
+		System.out.println("map.size = " + map.size() + "\n");
 		state = map.get(Movement.getRndNextInt(map.size()));
 		System.out.println("staet.y : " + state / super.WIDTH + "\nstate.x : " + state % super.WIDTH);
 		player.setState(state % super.WIDTH, state / super.WIDTH);
 
+	}
+
+	private void constEnemytoEnemy() {
+
+		ArrayList<ArrayList<Integer>> map = new ArrayList<ArrayList<Integer>>();
+		int state, size;
+		for (int i = 0; i < super.WIDTH * super.HEIGHT; i++) {
+			map.add(new ArrayList<Integer>());
+		}
+		for (int i = 0; i < enemy.size(); i++) {
+			state = enemy.get(i).getY() * super.WIDTH + enemy.get(i).getX();
+			map.get(state).add(i);
+		}
+		for (int i = 0; i < super.WIDTH * super.HEIGHT; i++) {
+			size = map.get(i).size();
+			if (size > 1) {
+				System.out.println("[" + i + "] : " + size + "\n");
+				for (int j = 0; j < size; j++) {
+					System.out.println("ene [" + map.get(i).get(j) + "] : \n");
+					enemy.get(map.get(i).get(j)).setMove_speed(0);
+				}
+			}
+		}
+	}
+
+	public boolean isNotConstPlayertoEnemy() {
+		for (int i = 0; i < enemy.size(); i++) {
+			if (enemy.get(i).getState() == player.getState())
+				return false;
+		}
+		return true;
+	}
+
+	public boolean isNotAllEnemyDied() {
+		for (int i = 0; i < enemy.size(); i++) {
+			if (enemy.get(i).getMove_speed() != 0)
+				return true;
+		}
+		return false;
+	}
+
+	public void GameOverPerform() {
+		ArrayList<Integer> map = new ArrayList<Integer>();
+		int state;
+		Random rnd = new Random();
+		for(int i = 0;i < super.HEIGHT * super.WIDTH;i++) {
+			map.add(i);
+		}
+		for(int i = 0;i < label.size();i++) {
+			state = rnd.nextInt(map.size());
+			label.get(map.get(state)).setText("①");
+			map.remove(state);
+		}
 	}
 }

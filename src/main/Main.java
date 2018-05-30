@@ -4,10 +4,19 @@ public class Main {
 
 	public static void main(String[] args) {
 		Game game = new Game();
-		game.StartLevel(3);
-		while(true) {
-			game.MoveFlow();
+		int level = 1;
+		while (true) {
+			game.StartLevel(level);
+			while (game.isNotConstPlayertoEnemy() && game.isNotAllEnemyDied()) {
+				game.MoveFlow();
+			}
+			if (!game.isNotConstPlayertoEnemy()) {
+				game.GameOverPerform();
+				level = 1;
+				break;
+			} else {
+				level++;
+			}
 		}
 	}
-
 }

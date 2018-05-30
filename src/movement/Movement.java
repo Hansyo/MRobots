@@ -4,8 +4,8 @@ import java.util.Random;
 
 import map.Map;
 
-public class Movement extends Map{
-	protected int x,y;
+public class Movement extends Map {
+	protected int x, y;
 	private static Random rnd = new Random();
 
 	public Movement() {
@@ -23,14 +23,18 @@ public class Movement extends Map{
 
 	public void AddX(int data) {
 		this.x += data;
-		if(this.x < 0) this.x = 0;
-		if(this.x > WIDTH) this.x = WIDTH;
+		if (this.x < 0)
+			this.x = 0;
+		if (this.x > WIDTH)
+			this.x = WIDTH;
 	}
 
 	public void AddY(int data) {
 		this.y += data;
-		if(this.y < 0) this.y = 0;
-		if(this.y > HEIGHT) this.y = HEIGHT;
+		if (this.y < 0)
+			this.y = 0;
+		if (this.y > HEIGHT)
+			this.y = HEIGHT;
 	}
 
 	public int getX() {
@@ -39,6 +43,10 @@ public class Movement extends Map{
 
 	public int getY() {
 		return this.y;
+	}
+
+	public int getState() {
+		return this.y * super.WIDTH + this.x;
 	}
 
 	public static int getRndNextInt(int range) {

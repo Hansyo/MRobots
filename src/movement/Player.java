@@ -1,10 +1,10 @@
 package movement;
 
-public class Player extends Movement{
+public class Player extends Movement {
 
 	private int old_x, old_y;
 
-	public Player(){
+	public Player() {
 		ResetPlayerState();
 	}
 
@@ -21,22 +21,22 @@ public class Player extends Movement{
 		super.y = super.HEIGHT / 2;
 	}
 
-	public int CalcPlayerState(int x,int y) {
+	public boolean CalcPlayerState(int x, int y) {
 		int c_x, c_y;
 		// xとyが範囲内にあるかどうかの確認
-		if((-1 <= x && x <= 1) && (-1 <= y && y <= 1)) {
+		if ((-1 <= x && x <= 1) && (-1 <= y && y <= 1)) {
 			c_x = super.getX() + x;
 			c_y = super.getY() + y;
 			// 移動した先が範囲内にあるかの確認
-			if((0 <= c_x && c_x < super.WIDTH) && (0 <= c_y && c_y < super.HEIGHT)) {
+			if ((0 <= c_x && c_x < super.WIDTH) && (0 <= c_y && c_y < super.HEIGHT)) {
 				this.old_x = super.getX();
 				this.old_y = super.getY();
 				super.AddX(x);
 				super.AddY(y);
-				return 0;
+				return true;
 			}
 		}
-	return 1;
+		return false;
 	}
 
 	public int getOld_x() {
@@ -55,7 +55,7 @@ public class Player extends Movement{
 		this.old_y = old_y;
 	}
 
-	public void setState(int x,int y) {
+	public void setState(int x, int y) {
 		super.x = x;
 		super.y = y;
 	}
