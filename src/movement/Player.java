@@ -47,5 +47,16 @@ public class Player extends Movement{
 		return old_y;
 	}
 
+	public void setOld_x(int old_x) {
+		this.old_x = old_x;
+	}
 
+	public void setOld_y(int old_y) {
+		this.old_y = old_y;
+	}
+
+	public void setState(int x,int y) {
+		super.x = x;
+		super.y = y;
+	}
 }

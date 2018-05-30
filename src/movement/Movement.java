@@ -21,13 +21,13 @@ public class Movement extends Map{
 		System.out.println("Y :" + this.y);
 	}
 
-	protected void AddX(int data) {
+	public void AddX(int data) {
 		this.x += data;
 		if(this.x < 0) this.x = 0;
 		if(this.x > WIDTH) this.x = WIDTH;
 	}
 
-	protected void AddY(int data) {
+	public void AddY(int data) {
 		this.y += data;
 		if(this.y < 0) this.y = 0;
 		if(this.y > HEIGHT) this.y = HEIGHT;
