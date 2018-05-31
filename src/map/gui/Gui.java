@@ -2,6 +2,7 @@ package map.gui;
 
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.event.KeyListener;
 
 import javax.swing.JLabel;
 
@@ -12,6 +13,11 @@ public class Gui extends map.Map {
 
 	public Gui() {
 		this.contentPane = this.frame.getContentPane();
+
+	}
+
+	public void addKeyListener(KeyListener l) {
+		frame.addKeyListener(l);
 	}
 
 	public void setGameBoard() {
@@ -24,6 +30,8 @@ public class Gui extends map.Map {
 	}
 
 	public int getKey() {
+		frame.run();
+		// frame.start();
 		return frame.getKey();
 	}
 

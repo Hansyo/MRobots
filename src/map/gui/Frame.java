@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JFrame;
 
-public class Frame extends JFrame implements KeyListener{
+public class Frame extends JFrame implements KeyListener, Runnable {
 	final private int WIDTH = 100;
 	final private int HEIGHT = 50;
 	private int key;
@@ -20,6 +20,11 @@ public class Frame extends JFrame implements KeyListener{
 		board.setFocusable(true);
 	}
 
+	public void addKeyListener(KeyListener l) {
+		board.addKeyListener(l);
+
+	}
+
 	public void setVisible(boolean b) {
 		this.board.setVisible(b);
 	}
@@ -29,13 +34,22 @@ public class Frame extends JFrame implements KeyListener{
 	}
 
 	public int getKey() {
-		requestFocusInWindow();
-		System.out.println("Frame.getKey!! ");
-		while (this.key_event == false)
-			;
-		System.out.println("Frame.getKey!! Break while!!");
-		this.key_event = false;
 		return this.key;
+	}
+
+	@Override
+	public void run() {
+		requestFocusInWindow();
+		while (true) {
+			try {
+				Thread.sleep(20);
+			}catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+			if (this.key_event == true) break;
+		}
+		this.key_event = false;
+
 	}
 
 	@Override
@@ -44,9 +58,8 @@ public class Frame extends JFrame implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println("getKey_event : " + this.key_event);
 		this.key = e.getKeyCode();
-		System.out.println("getKey : " + this.key);
+		System.out.println("getKey : " + this.key + " " + KeyEvent.VK_0);
 		this.key_event = true;
 	}
 

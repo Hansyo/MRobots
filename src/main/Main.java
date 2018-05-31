@@ -13,10 +13,11 @@ public class Main {
 			if (!game.isNotConstPlayertoEnemy()) {
 				game.GameOverPerform();
 				level = 1;
-				break;
+				if(!game.GameContinue()) break;
 			} else {
 				level++;
 			}
 		}
+		System.exit(0);
 	}
 }

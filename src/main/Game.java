@@ -69,49 +69,75 @@ public class Game extends Map {
 		do {
 			System.out.println("Start GetKey!!");
 			this.key = game_board.getKey();
-			System.out.println("GetKey!!" + this.key + " " + KeyEvent.VK_0);
+			System.out.println("GetKey!!" + this.key);
 			state = false;
-			switch (key) {
+			switch (this.key) {
 				case KeyEvent.VK_0:
+				case KeyEvent.VK_NUMPAD0:
+				case KeyEvent.VK_SPACE:
 					state = true;
 					System.out.println("Teleport!!");
 					TeleportPlayer();
 					break;
 				case KeyEvent.VK_1:
+				case KeyEvent.VK_NUMPAD1:
+				case KeyEvent.VK_Z:
 					state = player.CalcPlayerState(-1, +1);
 					break;
 				case KeyEvent.VK_2:
+				case KeyEvent.VK_NUMPAD2:
+				case KeyEvent.VK_X:
 					state = player.CalcPlayerState(0, +1);
 					break;
 				case KeyEvent.VK_3:
+				case KeyEvent.VK_NUMPAD3:
+				case KeyEvent.VK_C:
 					state = player.CalcPlayerState(+1, +1);
 					break;
 				case KeyEvent.VK_4:
+				case KeyEvent.VK_NUMPAD4:
+				case KeyEvent.VK_A:
 					state = player.CalcPlayerState(-1, 0);
 					break;
 				case KeyEvent.VK_5:
+				case KeyEvent.VK_NUMPAD5:
+				case KeyEvent.VK_S:
 					state = true;
 					break;
 				case KeyEvent.VK_6:
+				case KeyEvent.VK_NUMPAD6:
+				case KeyEvent.VK_D:
 					state = player.CalcPlayerState(+1, 0);
 					break;
 				case KeyEvent.VK_7:
+				case KeyEvent.VK_NUMPAD7:
+				case KeyEvent.VK_Q:
 					state = player.CalcPlayerState(-1, -1);
 					break;
 				case KeyEvent.VK_8:
+				case KeyEvent.VK_NUMPAD8:
+				case KeyEvent.VK_W:
 					state = player.CalcPlayerState(0, -1);
 					break;
 				case KeyEvent.VK_9:
+				case KeyEvent.VK_NUMPAD9:
+				case KeyEvent.VK_E:
 					state = player.CalcPlayerState(+1, -1);
 					break;
 				default:
 					state = false;
 			}
+			player.PrintData();
 			for (int j = 0; j < enemy.size() && state != true; j++) {
-				if (enemy.get(j).getState() == player.getState())
+				enemy.get(j).PrintData(j);
+				if (enemy.get(j).getState() == player.getState()) {
+					if (enemy.get(j).getMove_speed() == 0) System.out.println("This point is 0 move_speed!!");
 					state = false;
+					player.setState(player.getOld_x(), player.getOld_y());
+				}
 			}
 		} while (state != true);
+
 	}
 
 	private void CalcEnemyState() {
@@ -128,7 +154,6 @@ public class Game extends Map {
 				} else if (e_x > p_x) {
 					this.enemy.get(i).AddX(-1);
 				}
-				System.out.println("i : " + i);
 				if (e_y < p_y) {
 					this.enemy.get(i).AddY(1);
 				} else if (e_y > p_y) {
@@ -217,6 +242,7 @@ public class Game extends Map {
 	}
 
 	private void constEnemytoEnemy() {
+		int remove_count = 0;
 
 		ArrayList<ArrayList<Integer>> map = new ArrayList<ArrayList<Integer>>();
 		int state, size;
@@ -232,11 +258,17 @@ public class Game extends Map {
 			if (size > 1) {
 				System.out.println("[" + i + "] : " + size + "\n");
 				for (int j = 0; j < size; j++) {
-					System.out.println("ene [" + map.get(i).get(j) + "] : \n");
-					enemy.get(map.get(i).get(j)).setMove_speed(0);
+					System.out.println("ene [" + map.get(i).get(j).intValue() + "] : \n");
+					if (j == 0) {
+						enemy.get(map.get(i).get(j).intValue()).setMove_speed(0);
+					}else {
+						enemy.remove(map.get(i).get(j).intValue() - remove_count);
+						remove_count++;
+					}
 				}
 			}
 		}
+
 	}
 
 	public boolean isNotConstPlayertoEnemy() {
@@ -268,4 +300,13 @@ public class Game extends Map {
 			map.remove(state);
 		}
 	}
+
+	public boolean GameContinue() {
+		this.key = game_board.getKey();
+		if (this.key == KeyEvent.VK_Y || this.key == KeyEvent.VK_SPACE)
+			return true;
+		else
+			return false;
+	}
+
 }
