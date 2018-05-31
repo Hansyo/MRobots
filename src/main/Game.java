@@ -2,7 +2,6 @@ package main;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -13,7 +12,7 @@ import map.gui.Gui;
 import movement.Movement;
 import movement.Player;
 
-public class Game extends Map implements KeyListener{
+public class Game extends Map {
 
 	private ArrayList<movement.Enemy> enemy = new ArrayList<movement.Enemy>();
 	private ArrayList<JLabel> label = new ArrayList<JLabel>();
@@ -51,21 +50,8 @@ public class Game extends Map implements KeyListener{
 		PrintAllElements();
 	}
 
-	@Override
-	public void keyPressed(KeyEvent e) {
-		key = e.getKeyChar();
-		System.out.println("key : " + key + "\n");
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {}
-
-	@Override
-	public void keyReleased(KeyEvent e) {}
-
-
 	private void LabelClear() {
-		for(int i = 0;i < label.size();i++) {
+		for (int i = 0; i < label.size(); i++) {
 			label.get(i).setText("");
 		}
 	}
@@ -78,49 +64,48 @@ public class Game extends Map implements KeyListener{
 	}
 
 	private void CalcPlayerState() {
-		int input;
 		boolean state;
-		this.key = 0;
-		while(this.key != 0);
 
 		do {
-			input = this.key;
+			System.out.println("Start GetKey!!");
+			this.key = game_board.getKey();
+			System.out.println("GetKey!!" + this.key + " " + KeyEvent.VK_0);
 			state = false;
-			switch ((char) input) {
-			case '0':
-				state = true;
-				System.out.println("Teleport!!");
-				TeleportPlayer();
-				break;
-			case '1':
-				state = player.CalcPlayerState(-1, +1);
-				break;
-			case '2':
-				state = player.CalcPlayerState(0, +1);
-				break;
-			case '3':
-				state = player.CalcPlayerState(+1, +1);
-				break;
-			case '4':
-				state = player.CalcPlayerState(-1, 0);
-				break;
-			case '5':
-				state = true;
-				break;
-			case '6':
-				state = player.CalcPlayerState(+1, 0);
-				break;
-			case '7':
-				state = player.CalcPlayerState(-1, -1);
-				break;
-			case '8':
-				state = player.CalcPlayerState(0, -1);
-				break;
-			case '9':
-				state = player.CalcPlayerState(+1, -1);
-				break;
-			default:
-				state = false;
+			switch (key) {
+				case KeyEvent.VK_0:
+					state = true;
+					System.out.println("Teleport!!");
+					TeleportPlayer();
+					break;
+				case KeyEvent.VK_1:
+					state = player.CalcPlayerState(-1, +1);
+					break;
+				case KeyEvent.VK_2:
+					state = player.CalcPlayerState(0, +1);
+					break;
+				case KeyEvent.VK_3:
+					state = player.CalcPlayerState(+1, +1);
+					break;
+				case KeyEvent.VK_4:
+					state = player.CalcPlayerState(-1, 0);
+					break;
+				case KeyEvent.VK_5:
+					state = true;
+					break;
+				case KeyEvent.VK_6:
+					state = player.CalcPlayerState(+1, 0);
+					break;
+				case KeyEvent.VK_7:
+					state = player.CalcPlayerState(-1, -1);
+					break;
+				case KeyEvent.VK_8:
+					state = player.CalcPlayerState(0, -1);
+					break;
+				case KeyEvent.VK_9:
+					state = player.CalcPlayerState(+1, -1);
+					break;
+				default:
+					state = false;
 			}
 			for (int j = 0; j < enemy.size() && state != true; j++) {
 				if (enemy.get(j).getState() == player.getState())
@@ -173,15 +158,15 @@ public class Game extends Map implements KeyListener{
 			// System.out.println("[" + i + "]e_state: " + e_state);
 			// System.out.println(this.label.size() + "\n");
 			switch (this.enemy.get(i).getMove_speed()) {
-			case 1:
-				this.label.get(e_state).setText("①");
-				break;
-			case 2:
-				this.label.get(e_state).setText("②");
-				break;
-			default:
-				this.label.get(e_state).setText("#");
-				break;
+				case 1:
+					this.label.get(e_state).setText("①");
+					break;
+				case 2:
+					this.label.get(e_state).setText("②");
+					break;
+				default:
+					this.label.get(e_state).setText("#");
+					break;
 			}
 		}
 	}
@@ -274,10 +259,10 @@ public class Game extends Map implements KeyListener{
 		ArrayList<Integer> map = new ArrayList<Integer>();
 		int state;
 		Random rnd = new Random();
-		for(int i = 0;i < super.HEIGHT * super.WIDTH;i++) {
+		for (int i = 0; i < super.HEIGHT * super.WIDTH; i++) {
 			map.add(i);
 		}
-		for(int i = 0;i < label.size();i++) {
+		for (int i = 0; i < label.size(); i++) {
 			state = rnd.nextInt(map.size());
 			label.get(map.get(state)).setText("①");
 			map.remove(state);

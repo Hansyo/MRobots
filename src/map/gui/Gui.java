@@ -23,6 +23,10 @@ public class Gui extends map.Map {
 		panel.addLabel(label);
 	}
 
+	public int getKey() {
+		return frame.getKey();
+	}
+
 	public void setVisible(boolean b) {
 		this.frame.setVisible(b);
 	}

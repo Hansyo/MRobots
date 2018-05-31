@@ -7,7 +7,7 @@ import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Panel {
+public class Panel extends JPanel {
 	private JPanel panel = new JPanel();
 	private final int GAP = 2;
 	private final int WIDTH = 20;
@@ -19,6 +19,7 @@ public class Panel {
 		this.panel.setLayout(this.grid);
 		this.panel.setFocusable(true);
 		panel.requestFocusInWindow();
+		System.out.println("isFocusable " + isFocusable());
 	}
 
 	public void setPreferredSize(int width, int height) {
