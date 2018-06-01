@@ -229,9 +229,9 @@ public class Game extends Map {
 		for (int i = 0; i < super.HEIGHT * super.WIDTH; i++) {
 			map.add(new Integer(i));
 		}
-		map.remove(player.getY() * super.WIDTH + player.getX());
+		map.remove((Integer) player.getY() * super.WIDTH + player.getX());
 		for (int i = 0; i < enemy.size(); i++) {
-			map.remove(enemy.get(i).getY() * super.WIDTH + enemy.get(i).getX());
+			map.remove((Integer) enemy.get(i).getY() * super.WIDTH + enemy.get(i).getX());
 		}
 
 		System.out.println("map.size = " + map.size() + "\n");
