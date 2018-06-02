@@ -13,14 +13,6 @@ public class Movement extends Map {
 		this.y = Movement.rnd.nextInt(HEIGHT);
 	}
 
-	public void PrintX() {
-		System.out.println("X :" + this.x);
-	}
-
-	public void PrintY() {
-		System.out.println("Y :" + this.y);
-	}
-
 	public void AddX(int data) {
 		this.x += data;
 		if (this.x < 0)

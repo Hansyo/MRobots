@@ -6,6 +6,7 @@ public class Main {
 		Game game = new Game();
 		int level = 1;
 		while (true) {
+			System.out.println("Now Stage is " + level + "!!");
 			game.StartLevel(level);
 			while (game.isNotConstPlayertoEnemy() && game.isNotAllEnemyDied()) {
 				game.MoveFlow();

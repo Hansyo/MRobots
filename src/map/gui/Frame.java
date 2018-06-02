@@ -59,7 +59,6 @@ public class Frame extends JFrame implements KeyListener, Runnable {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		this.key = e.getKeyCode();
-		System.out.println("getKey : " + this.key + " " + KeyEvent.VK_0);
 		this.key_event = true;
 	}
 

@@ -45,7 +45,6 @@ public class Game extends Map {
 		MakeEnemy(level * 2 + level / 5 + 2, 1);
 		MakeEnemy(level / 3, 2);
 		PrintAllEnemy();
-		this.player.PrintData();
 		this.game_board.setVisible(true);
 		PrintAllElements();
 	}
@@ -67,16 +66,16 @@ public class Game extends Map {
 		boolean state;
 
 		do {
-			System.out.println("Start GetKey!!");
+			// System.out.println("Start GetKey!!");
 			this.key = game_board.getKey();
-			System.out.println("GetKey!!" + this.key);
+			// System.out.println("GetKey!!" + this.key);
 			state = false;
 			switch (this.key) {
 				case KeyEvent.VK_0:
 				case KeyEvent.VK_NUMPAD0:
 				case KeyEvent.VK_SPACE:
 					state = true;
-					System.out.println("Teleport!!");
+					// System.out.println("Teleport!!");
 					TeleportPlayer();
 					break;
 				case KeyEvent.VK_1:
@@ -127,11 +126,8 @@ public class Game extends Map {
 				default:
 					state = false;
 			}
-			player.PrintData();
 			for (int j = 0; j < enemy.size() && state != true; j++) {
-				enemy.get(j).PrintData(j);
 				if (enemy.get(j).getState() == player.getState()) {
-					if (enemy.get(j).getMove_speed() == 0) System.out.println("This point is 0 move_speed!!");
 					state = false;
 					player.setState(player.getOld_x(), player.getOld_y());
 				}
@@ -231,12 +227,16 @@ public class Game extends Map {
 		}
 		map.remove((Integer) player.getY() * super.WIDTH + player.getX());
 		for (int i = 0; i < enemy.size(); i++) {
-			map.remove((Integer) enemy.get(i).getY() * super.WIDTH + enemy.get(i).getX());
+			int j;
+			for(j = 0;j < map.size();j++) {
+				if(map.get(j) == enemy.get(i).getY() * super.WIDTH + enemy.get(i).getX()) break;
+			}
+			if(j != map.size())map.remove(j);
 		}
 
-		System.out.println("map.size = " + map.size() + "\n");
+		// System.out.println("map.size = " + map.size() + "\n");
 		state = map.get(Movement.getRndNextInt(map.size()));
-		System.out.println("staet.y : " + state / super.WIDTH + "\nstate.x : " + state % super.WIDTH);
+		// System.out.println("staet.y : " + state / super.WIDTH + "\nstate.x : " + state % super.WIDTH);
 		player.setState(state % super.WIDTH, state / super.WIDTH);
 
 	}
@@ -256,9 +256,9 @@ public class Game extends Map {
 		for (int i = 0; i < super.WIDTH * super.HEIGHT; i++) {
 			size = map.get(i).size();
 			if (size > 1) {
-				System.out.println("[" + i + "] : " + size + "\n");
+				// System.out.println("[" + i + "] : " + size + "\n");
 				for (int j = 0; j < size; j++) {
-					System.out.println("ene [" + map.get(i).get(j).intValue() + "] : \n");
+					// System.out.println("ene [" + map.get(i).get(j).intValue() + "] : \n");
 					if (j == 0) {
 						enemy.get(map.get(i).get(j).intValue()).setMove_speed(0);
 					}else {

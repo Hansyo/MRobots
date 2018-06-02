@@ -9,16 +9,6 @@ public class Enemy extends Movement {
 		this.y = y;
 	}
 
-	public void PrintData(int i) {
-		System.out.print("Enemy[" + i + "]");
-		super.PrintX();
-		System.out.print("Enemy[" + i + "]");
-		super.PrintY();
-		System.out.print("Enemy[" + i + "]");
-		System.out.println("S: " + this.move_speed);
-		System.out.println();
-	}
-
 	public int getMove_speed() {
 		return move_speed;
 	}
