@@ -303,7 +303,7 @@ public class Game extends Map {
 
 	public boolean GameContinue() {
 		this.key = game_board.getKey();
-		if (this.key == KeyEvent.VK_Y || this.key == KeyEvent.VK_SPACE)
+		if (this.key == KeyEvent.VK_Y || this.key == KeyEvent.VK_SPACE || this.key == KeyEvent.VK_NUMPAD0 || this.key == KeyEvent.VK_0)
 			return true;
 		else
 			return false;
